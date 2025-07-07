@@ -1,53 +1,105 @@
+/* Base styles */
 body {
-  font-family: Arial, sans-serif;
-  background: #f7f7f7;
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+  background: linear-gradient(to right, #f0f4f8, #e2e8f0);
   margin: 0;
   padding: 0;
+  color: #2d3748;
 }
+
+/* Quiz container */
 .quiz-container {
-  max-width: 700px;
-  margin: 40px auto;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  padding: 32px;
+  max-width: 800px;
+  margin: 60px auto;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 40px;
 }
+
+/* Title */
 h1 {
   text-align: center;
-  color: #2d3a4b;
+  color: #1a202c;
+  margin-bottom: 32px;
 }
+
+/* Question block */
 .question-block {
-  margin-bottom: 24px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #eee;
+  margin-bottom: 28px;
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border-left: 4px solid #4299e1;
 }
+
+/* Question text */
+.question-block p {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* Answer options */
 label {
   display: block;
   margin: 6px 0;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
-button {
-  background: #2d3a4b;
+
+input[type="radio"] {
+  margin-right: 10px;
+}
+
+/* Submit button */
+button[type="submit"] {
+  display: block;
+  margin: 30px auto 0;
+  background: #3182ce;
   color: #fff;
   border: none;
-  padding: 12px 24px;
-  border-radius: 4px;
+  padding: 14px 32px;
+  border-radius: 6px;
   font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  margin-top: 16px;
+  transition: background 0.3s ease;
 }
+
+button[type="submit"]:hover {
+  background: #2b6cb0;
+}
+
 button:disabled {
-  background: #aaa;
+  background: #a0aec0;
+  cursor: not-allowed;
 }
+
+/* Result section */
 .result {
-  max-width: 500px;
-  margin: 60px auto;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  padding: 32px;
+  max-width: 600px;
+  margin: 80px auto;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 40px;
   text-align: center;
 }
+
+.result h2 {
+  color: #38a169;
+  margin-bottom: 16px;
+}
+
+.result p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Error message */
 .error {
-  color: #c00;
+  color: #e53e3e;
   font-weight: bold;
+  text-align: center;
+  margin-top: 16px;
 }
