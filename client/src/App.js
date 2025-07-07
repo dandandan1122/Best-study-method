@@ -58,8 +58,10 @@ function App() {
 
   const handleChange = (qIdx, value) => {
     const newAnswers = [...answers];
-    newAnswers(newAnswers);
+    newAnswers[qIdx] = value;
+    setAnswers(newAnswers); // ✅ This line was broken before
   };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
