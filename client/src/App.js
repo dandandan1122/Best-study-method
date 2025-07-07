@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import './App.css';
 
 const studyTypes = ['Visual', 'Auditory', 'Reading/Writing', 'Kinesthetic'];
@@ -45,25 +44,22 @@ const questions = [
 ];
 
 const studyMethodMap = [
-  0, 1, 2, 3, // 1-4
-  0, 1, 2, 3, // 5-8
-  0, 1, 2, 3, // 9-12
-  0, 1, 2, 3, // 13-16
-  0, 1, 2, 3, // 17-20
-  0, 1, 2, 3, // 21-24
-  0, 1, 2, 3, // 25-28
-  0, 1        // 29-30
+  0, 1, 2, 3, 0, 1, 2, 3,
+  0, 1, 2, 3, 0, 1, 2, 3,
+  0, 1, 2, 3, 0, 1, 2, 3,
+  0, 1, 2, 3, 0, 1
 ];
 
 function App() {
   const [answers, setAnswers] = useState(Array(30).fill(null));
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
+  const [showDetails, setShowDetails] = useState(false);
 
   const handleChange = (qIdx, value) => {
     const newAnswers = [...answers];
     newAnswers[qIdx] = value;
-    setAnswers(newAnswers);
+    setAnswers);
   };
 
   const handleSubmit = (e) => {
@@ -74,8 +70,7 @@ function App() {
       return;
     }
 
-    const scores = [0, 0, 0, 0]; // Visual, Auditory, Reading/Writing, Kinesthetic
-
+    const scores = [0, 0, 0, 0];
     answers.forEach((answer, idx) => {
       const methodIdx = studyMethodMap[idx];
       scores[methodIdx] += parseInt(answer);
@@ -91,12 +86,62 @@ function App() {
     });
   };
 
+  const getStudyTips = (type) => {
+    const tips = {
+      Visual: [
+        'Use mind maps, charts, and diagrams to organize information.',
+        'Color-code your notes to highlight key concepts.',
+        'Watch videos or animations to reinforce learning.',
+        'Use flashcards with images or symbols.'
+      ],
+      Auditory: [
+        'Record lectures or yourself reading notes aloud.',
+        'Join study groups or explain topics to others.',
+        'Use rhymes, songs, or mnemonics to remember facts.',
+        'Listen to educational podcasts or audiobooks.'
+      ],
+      'Reading/Writing': [
+        'Rewrite notes in your own words.',
+        'Use bullet points, outlines, and headings.',
+        'Read textbooks and highlight key sections.',
+        'Practice with written quizzes or summaries.'
+      ],
+      Kinesthetic: [
+        'Use hands-on activities like building models or doing experiments.',
+        'Act out scenarios or use gestures while studying.',
+        'Take frequent breaks and move around while learning.',
+        'Use physical flashcards or interactive tools.'
+      ]
+    };
+    return tips[type] || [];
+  };
+
   if (result) {
     return (
       <div className="result">
         <h2>Your Best Study Method: {result.type}</h2>
         <p>{result.description}</p>
-        <button onClick={() => { setResult(null); setAnswers(Array(30).fill(null)); }}>
+
+        {!showDetails && (
+          <button onClick={() => setShowDetails(true)}>Learn More</button>
+        )}
+
+        {showDetails && (
+          <div className="study-tips">
+            <h3>Study Tips for {result.type} Learners:</h3>
+            <ul>
+              {getStudyTips(result.type).map((tip, index) => (
+                <li key={index}>{tip}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <button onClick={() => {
+          setResult(null);
+          setAnswers(Array(30).fill(null));
+          setShowDetails(false);
+        }}>
           Retake Quiz
         </button>
       </div>
@@ -129,6 +174,11 @@ function App() {
         <button type="submit">Submit</button>
       </form>
     </div>
+  );
+}
+
+export default App;
+
   );
 }
 
