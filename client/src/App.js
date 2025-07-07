@@ -1,4 +1,11 @@
-import React, { useState } from 'react';
+const studyTypes = ['Visual', 'Auditory', 'Reading/Writing', 'Kinesthetic'];
+
+const studyDescriptions = {
+  Visual: 'You learn best through seeing. Use diagrams, charts, and color-coded notes.',
+  Auditory: 'You learn best through listening. Try lectures, discussions, and audiobooks.',
+  'Reading/Writing': 'You learn best through reading and writing. Use lists, notes, and written explanations.',
+  Kinesthetic: 'You learn best through doing. Use hands-on activities, experiments, and movement.'
+};
 
 const questions = [
   // 30 questions, each with 4 options corresponding to a study method
