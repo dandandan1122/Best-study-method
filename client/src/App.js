@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 const studyTypes = ['Visual', 'Auditory', 'Reading/Writing', 'Kinesthetic'];
 
 const studyDescriptions = {
