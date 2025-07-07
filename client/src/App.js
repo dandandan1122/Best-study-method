@@ -58,8 +58,7 @@ function App() {
 
   const handleChange = (qIdx, value) => {
     const newAnswers = [...answers];
-    newAnswers[qIdx] = value;
-    setAnswers);
+    newAnswers(newAnswers);
   };
 
   const handleSubmit = (e) => {
@@ -174,11 +173,6 @@ function App() {
         <button type="submit">Submit</button>
       </form>
     </div>
-  );
-}
-
-export default App;
-
   );
 }
 
