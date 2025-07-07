@@ -10,7 +10,6 @@ const studyDescriptions = {
 };
 
 const questions = [
-  // 30 questions, each with 4 options corresponding to a study method
   { q: 'I remember information best when I see it written down or in diagrams.', options: ['Strongly Agree', 'Agree', 'Disagree', 'Strongly Disagree'] },
   { q: 'I prefer listening to lectures over reading textbooks.', options: ['Strongly Agree', 'Agree', 'Disagree', 'Strongly Disagree'] },
   { q: 'I like to take notes and rewrite information to learn.', options: ['Strongly Agree', 'Agree', 'Disagree', 'Strongly Disagree'] },
@@ -51,14 +50,13 @@ const studyMethodMap = [
   0, 1, 2, 3, // 17-20
   0, 1, 2, 3, // 21-24
   0, 1, 2, 3, // 25-28
-  0, 1 // 29-30
+  0, 1        // 29-30
 ];
 
 function App() {
   const [answers, setAnswers] = useState(Array(30).fill(null));
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
 
   const handleChange = (qIdx, value) => {
     const newAnswers = [...answers];
@@ -66,26 +64,29 @@ function App() {
     setAnswers(newAnswers);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
     if (answers.some(a => a === null)) {
       setError('Please answer all questions.');
       return;
     }
-    setLoading(true);
-    try {
-      const res = await fetch('https://best-study-method-server.onrender.com/api/quiz', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ answers })
-      });
-      const data = await res.json();
-      setResult(data);
-    } catch (err) {
-      setError('Error submitting quiz.');
-    }
-    setLoading(false);
+
+    const scores = [0, 0, 0, 0]; // Visual, Auditory, Reading/Writing, Kinesthetic
+
+    answers.forEach((answer, idx) => {
+      const methodIdx = studyMethodMap[idx];
+      scores[methodIdx] += parseInt(answer);
+    });
+
+    const maxScore = Math.max(...scores);
+    const bestMethodIdx = scores.indexOf(maxScore);
+    const bestMethod = studyTypes[bestMethodIdx];
+
+    setResult({
+      type: bestMethod,
+      description: studyDescriptions[bestMethod]
+    });
   };
 
   if (result) {
@@ -93,7 +94,9 @@ function App() {
       <div className="result">
         <h2>Your Best Study Method: {result.type}</h2>
         <p>{result.description}</p>
-        <button onClick={() => { setResult(null); setAnswers(Array(30).fill(null)); }}>Retake Quiz</button>
+        <button onClick={() => { setResult(null); setAnswers(Array(30).fill(null)); }}>
+          Retake Quiz
+        </button>
       </div>
     );
   }
@@ -121,7 +124,7 @@ function App() {
           </div>
         ))}
         {error && <p className="error">{error}</p>}
-        <button type="submit" disabled={loading}>{loading ? 'Submitting...' : 'Submit'}</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
