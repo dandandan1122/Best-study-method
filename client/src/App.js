@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import './App.css';
+
 const studyTypes = ['Visual', 'Auditory', 'Reading/Writing', 'Kinesthetic'];
 
 const studyDescriptions = {
